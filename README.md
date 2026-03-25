@@ -139,5 +139,4 @@ After running the full pipeline, `data/results/` contains:
 - `anova_table.csv` — partial η² per factor
 - `correlation_results.csv` — Pearson r subgroup analysis
 - `figures/` — all publication-ready plots (PDF + PNG)
-
 ---
