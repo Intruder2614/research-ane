@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-03-25T15:26:01Z",
+  "coremltools_version": "9.0",
+  "models": [
+    {
+      "name": "mobilenetv3_small_fp32.mlpackage",
+      "model": "mobilenetv3_small",
+      "precision": "fp32",
+      "size_mb": 9.774,
+      "elapsed_sec": 2.6,
+      "status": "ok"
+    },
+    {
+      "name": "mobilenetv3_small_fp16.mlpackage",
+      "model": "mobilenetv3_small",
+      "precision": "fp16",
+      "size_mb": 4.945,
+      "elapsed_sec": 3.8,
+      "status": "ok"
+    },
+    {
+      "name": "mobilenetv3_small_int8_linear.mlpackage",
+      "model": "mobilenetv3_small",
+      "precision": "int8_linear",
+      "size_mb": 2.581,
+      "elapsed_sec": 5.8,
+      "status": "ok"
+    },
+    {
+      "name": "mobilenetv3_small_int8_palettized.mlpackage",
+      "model": "mobilenetv3_small",
+      "precision": "int8_palettized",
+      "size_mb": 1.351,
+      "elapsed_sec": 6.6,
+      "status": "ok"
+    },
+    {
+      "name": "mobilenetv3_large_fp32.mlpackage",
+      "model": "mobilenetv3_large",
+      "precision": "fp32",
+      "size_mb": 20.982,
+      "elapsed_sec": 2.8,
+      "status": "ok"
+    },
+    {
+      "name": "mobilenetv3_large_fp16.mlpackage",
+      "model": "mobilenetv3_large",
+      "precision": "fp16",
+      "size_mb": 10.557,
+      "elapsed_sec": 3.4,
+      "status": "ok"
+    },
+    {
+      "name": "mobilenetv3_large_int8_linear.mlpackage",
+      "model": "mobilenetv3_large",
+      "precision": "int8_linear",
+      "size_mb": 5.434,
+      "elapsed_sec": 5.0,
+      "status": "ok"
+    },
+    {
+      "name": "mobilenetv3_large_int8_palettized.mlpackage",
+      "model": "mobilenetv3_large",
+      "precision": "int8_palettized",
+      "size_mb": 2.801,
+      "elapsed_sec": 6.5,
+      "status": "ok"
+    }
+  ]
+}

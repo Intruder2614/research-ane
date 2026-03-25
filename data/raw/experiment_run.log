@@ -1,0 +1,14 @@
+============================================================
+ANE Cache Research — Experiment Run
+Date: 2026-03-24T21:13:27Z
+Host: Biswareets-MacBook-Air.local  Chip: Apple M2
+============================================================
+ERROR: Harness binary not found at ./harness/.build/release/ANEBenchmark
+Build it first: open harness/ in Xcode → Product → Build
+============================================================
+ANE Cache Research — Experiment Run
+Date: 2026-03-24T21:35:02Z
+Host: Biswareets-MacBook-Air.local  Chip: Apple M2
+============================================================
+ERROR: Harness binary not found at ./harness/.build/release/ANEBenchmark
+Build it first: open harness/ in Xcode → Product → Build

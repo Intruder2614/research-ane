@@ -1,0 +1,7 @@
+# Raw benchmark outputs (large binary/JSON files)
+raw/*.json
+raw/traces/
+# Processed CSVs (regenerated from raw data)
+processed/
+# Results (regenerate from scripts — commit only final figures)
+results/*.csv

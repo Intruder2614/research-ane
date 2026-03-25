@@ -1,0 +1,103 @@
+# ============================================================
+# Experiment Configuration
+# Cache-Performance Decomposition Analysis — ANE Research 2026
+# ============================================================
+# All tunable parameters live here. Scripts import this file
+# via PyYAML. Edit this file — not the scripts — to change params.
+
+# ---- Hardware targets ----
+devices:
+  primary: "macOS"          # macOS | iOS
+  chip_generation: "M2"     # M1 | M2 | M3 — affects breakpoint expectation
+  # Estimated on-chip SRAM per generation (MB) — from published die analyses
+  # These are used as PRIOR estimates, not ground truth.
+  sram_estimates:
+    M1:  8.0
+    M2: 12.0
+    M3: 18.0
+
+# ---- Measurement protocol ----
+measurement:
+  warmup_iterations: 200      # discarded — allows JIT, thermal stabilisation
+  record_iterations: 500      # actual measurement window
+  thermal_cutoff_celsius: 45  # abort run if skin temp exceeds this
+  thermal_poll_interval_ms: 2000  # IOKit poll frequency during run
+  batch_size: 1               # always 1 — we are measuring single-inference latency
+
+# ---- CoreML compute unit conditions ----
+# Maps to MLComputeUnits enum values
+compute_units:
+  - name: "cpu_only"
+    value: "cpuOnly"
+  - name: "cpu_ane"
+    value: "cpuAndNeuralEngine"
+  - name: "all"
+    value: "all"
+
+# ---- Model family ----
+models:
+  primary_family: "MobileNetV3"
+  variants:
+    - name: "mobilenetv3_small"
+      source: "torchvision"
+      input_shape: [1, 3, 224, 224]
+    - name: "mobilenetv3_large"
+      source: "torchvision"
+      input_shape: [1, 3, 224, 224]
+
+# ---- Precision variants ----
+precisions:
+  - name: "fp32"
+    coremltools_dtype: "float32"
+  - name: "fp16"
+    coremltools_dtype: "float16"
+  - name: "int8_linear"
+    coremltools_dtype: "int8"
+    quantization_mode: "linear"
+  - name: "int8_palettized"
+    coremltools_dtype: "int8"
+    quantization_mode: "palettized_4bit"  # 4-bit palettization for comparison
+
+# ---- Working-set size sweep ----
+# Generate model variants by scaling MobileNetV3 width multiplier
+# Target footprint sizes in MB (approximate — actual size logged post-conversion)
+working_set_sweep:
+  target_sizes_mb: [0.5, 1.0, 2.0, 4.0, 8.0, 14.0, 22.0, 38.0]
+  width_multipliers: [0.05, 0.1, 0.2, 0.35, 0.5, 0.75, 1.0, 1.4]
+  input_shape: [1, 3, 224, 224]
+
+# ---- Memory pressure sweep ----
+pressure_test:
+  occupancy_fractions: [0.0, 0.25, 0.40, 0.55, 0.65, 0.75, 0.85]
+  allocation_chunk_mb: 50      # allocate in 50 MB chunks
+  stabilisation_wait_sec: 3   # wait after allocation before starting inference
+
+# ---- Statistical analysis ----
+analysis:
+  outlier_removal:
+    method: "iqr"              # IQR-based Tukey fences
+    iqr_multiplier: 1.5
+
+  chow_test:
+    significance_level: 0.05
+    min_segment_fraction: 0.2  # each segment must contain ≥20% of data points
+
+  anova:
+    factors: ["precision", "model_size_bin", "compute_unit", "thermal_bin"]
+    thermal_bins: [0, 38, 42, 50]  # Celsius boundaries → cold/warm/hot
+    model_size_bins: [0, 4, 12, 100]  # MB → small/medium/large
+
+  correlation:
+    subgroups:
+      cache_resident_max_mb: 10    # models likely resident in estimated SRAM
+      cache_evicting_min_mb: 20    # models likely causing eviction
+
+# ---- Paths ----
+paths:
+  models_dir: "data/models"
+  sweep_dir: "data/models/sweep"
+  raw_data_dir: "data/raw"
+  processed_dir: "data/processed"
+  results_dir: "data/results"
+  figures_dir: "data/results/figures"
+  trace_dir: "data/raw/traces"
