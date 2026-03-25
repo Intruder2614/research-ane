@@ -1,7 +1,7 @@
 # Cache-Performance Decomposition Analysis
 ## Quantifying Memory Hierarchy vs Arithmetic Contributions in INT8 Quantized Inference on Apple Neural Engine
 
-**SIKSHA 'O' ANUSANDHAN — ITER CSE — FRP 2026 — Section 2241026 — Group 05**
+
 
 ---
 
@@ -141,13 +141,3 @@ After running the full pipeline, `data/results/` contains:
 - `figures/` — all publication-ready plots (PDF + PNG)
 
 ---
-
-## Authors
-
-1. Biswareet Panda (2241016068)
-2. Kiran Panigrahi (2241016163)
-3. Atul Raj (2241018016)
-4. Swagat Padhi (2241016013)
-5. Harshit Raj (2241018022)
-
-Supervisor: [To be assigned] — Section Coordinator, FRP
